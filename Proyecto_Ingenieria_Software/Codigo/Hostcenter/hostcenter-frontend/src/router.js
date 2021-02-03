@@ -5,11 +5,27 @@ import ListarProducto from './views/productos/ListarProductos.vue'
 import EditarProducto from './views/productos/EditarProductos.vue'
 import CrearProducto from './views/productos/CrearProductos.vue'
 
+import ListarPersonas from './views/personas/ListarPersonas.vue'
+import EditarPersonas from './views/personas/EditarPersonas.vue'
+import CrearPersonas from './views/personas/CrearPersonas.vue'
+
+import ListarBodegas from './views/bodegas/ListarBodegas.vue'
+import EditarBodegas from './views/bodegas/EditarBodegas.vue'
+import CrearBodegas from './views/bodegas/CrearBodegas.vue'
+
+// import Login from './Login.vue'
+// import Home from './Home.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
   // {
   //   path: '/',
+  //   name: 'Login',
+  //   component: Login
+  // },
+  // {
+  //   path: '/Home',
   //   name: 'Home',
   //   component: Home
   // },
@@ -25,8 +41,38 @@ const routes = [
   },
   {
     path: '/productos/crear/',
-    name: 'EditarProductos',
+    name: 'CrearProductos',
     component: CrearProducto
+  },
+  {
+    path: '/personas',
+    name: 'ListarPersonas',
+    component: ListarPersonas
+  },
+  {
+    path: '/personas/editar/:id',
+    name: 'EditarPersonas',
+    component: EditarPersonas
+  },
+  {
+    path: '/personas/crear/',
+    name: 'CrearPersonas',
+    component: CrearPersonas
+  },
+  {
+    path: '/bodegas',
+    name: 'ListarBodegas',
+    component: ListarBodegas
+  },
+  {
+    path: '/bodegas/editar/:id',
+    name: 'EditarBodegas',
+    component: EditarBodegas
+  },
+  {
+    path: '/bodegas/crear/',
+    name: 'CrearBodegas',
+    component: CrearBodegas
   }
   // {
   //   path: '/about',
