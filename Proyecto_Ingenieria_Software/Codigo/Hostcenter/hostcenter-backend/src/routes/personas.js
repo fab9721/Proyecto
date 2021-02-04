@@ -10,17 +10,17 @@ app.get('/personas',[],async(req,res)=>{
      // Pagineo, desde que registro va a comenzar el Query
      let desde = req.query.desde || 0;
      desde = Number(desde);
-    ///pruebas de cambios
+
      // Cantidad Límite
     let limite = req.query.limite || 5;
     limite = Number(limite);
 
     await conn.select("*")
-        .from("persona")
-        .where("estado","A")
-        .then(data=>res.json({
+        .from("vlistarpersonas")
+        //.where("estado","A")
+        .then(persona=>res.json({
         result: "ok",
-        data
+        persona
     })).catch(err=>res.status(400).json({
         result:false,
         mensaje:err
@@ -29,21 +29,37 @@ app.get('/personas',[],async(req,res)=>{
 });
 
 
-//CONSULTAR PERSONAS POR IDENTIFICACON
-app.get('/personas/:identificacion',async (req,res)=>{
+// //CONSULTAR PERSONAS POR IDENTIFICACON
+// app.get('/personas/:identificacion',async (req,res)=>{
+
+//     await conn.select("*")
+//         .from("persona")
+//         .where("identificacion",req.params.identificacion)
+//         .then(persona=>res.json({
+//         result: "ok",
+//         persona
+//     })).catch(err=>res.status(400).json({
+//         result:false,
+//         mensaje:err
+//     }))
+// });
+
+//CONSULTAR PERSONAS POR ID
+app.get('/personas/:persona_id',async (req,res)=>{
+
+    //console.log(req.params.persona_id);
 
     await conn.select("*")
         .from("persona")
-        .where("identificacion",req.params.identificacion)
-        .then(data=>res.json({
+        .where("persona_id",req.params.persona_id)
+        .then(persona=>res.json({
         result: "ok",
-        data
+        persona
     })).catch(err=>res.status(400).json({
         result:false,
         mensaje:err
     }))
 });
-
 
 //CREAR PERSONAS
 app.post('/personas',[
@@ -92,10 +108,10 @@ app.post('/personas',[
                esProveedor: esProveedor,
                estado: "A"
             }
-        ).then(data=>res.json({
+        ).then(persona=>res.json({
             result: "ok",
             mensaje: "Registro grabado con exito!",
-            data
+            persona
         })).catch(err=>res.status(400).json({
             result:false,
             mensaje:err
@@ -111,8 +127,9 @@ app.put('/personas/:persona_id',[
 ],async(req,res)=>{
 
     let persona_id = req.params.persona_id;
-
+    //console.log('Hola mundooo' + persona_id);
     const {
+        tipo_identificacion,
         identificacion,
         nombres,
         apellidos,
@@ -134,21 +151,22 @@ app.put('/personas/:persona_id',[
 
     await conn("persona")
         .update({
+            tipo_identificacion: tipo_identificacion,
             identificacion: identificacion,
             nombres: nombres,
             apellidos: apellidos,
             direccion: direccion,
             telefono: telefono,
             email: email,
-            fecha_nacimiento,
+            fecha_nacimiento:fecha_nacimiento,
             esCliente: esCliente,
             esProveedor: esProveedor,
         })
         .where({persona_id})
-        .then(data=>res.json({
+        .then(persona=>res.json({
             result: "ok",
             mensaje: "Registro actualizado con exito!",
-            data
+            persona
         })).catch(err=>res.status(400).json({
             result:false,
             mensaje:err
@@ -168,10 +186,10 @@ app.delete('/personas/:persona_id',async(req,res)=>{
         .where({
             persona_id
         })
-        .then(data=>res.json({
+        .then(persona=>res.json({
             result:"ok",
             mensaje:"Registro eliminado con exito",
-            data
+            persona
         })).catch(err=>res.status(400).json({
             result:false,
             mensaje:err
