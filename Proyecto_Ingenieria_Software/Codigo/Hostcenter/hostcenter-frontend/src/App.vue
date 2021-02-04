@@ -27,7 +27,7 @@
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-list-item :to="{name:''}">
+          <v-list-item :to="{name:'ListarPersonas'}">
             <v-list-item-action>
               <v-icon>mdi-account</v-icon>
             </v-list-item-action>
@@ -47,7 +47,7 @@
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-list-item :to="{name:''}">
+          <v-list-item :to="{name:'ListarBodegas'}">
             <v-list-item-action>
               <v-icon>mdi-store</v-icon>
             </v-list-item-action>
