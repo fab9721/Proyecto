@@ -37,7 +37,7 @@
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-list-item :to="{name:''}">
+          <v-list-item :to="{name:'ListarCategorias'}">
             <v-list-item-action>
               <v-icon>mdi-cards-variant</v-icon>
             </v-list-item-action>
@@ -54,6 +54,16 @@
             <v-list-item-content>
               <v-list-item-title>
                 Bodegas
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item :to="{name:'ListarUsuarios'}">
+            <v-list-item-action>
+              <v-icon>mdi-account</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>
+                Usuarios
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
