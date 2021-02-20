@@ -21,11 +21,17 @@ CREATE TABLE IF NOT EXISTS `bodega` (
   `bodega_id` int(11) NOT NULL AUTO_INCREMENT,
   `codigo` varchar(5) DEFAULT NULL,
   `descripcion` varchar(250) DEFAULT NULL,
+  `estado` char(1) DEFAULT NULL,
   PRIMARY KEY (`bodega_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla hostcenter.bodega: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla hostcenter.bodega: ~4 rows (aproximadamente)
 /*!40000 ALTER TABLE `bodega` DISABLE KEYS */;
+INSERT INTO `bodega` (`bodega_id`, `codigo`, `descripcion`, `estado`) VALUES
+	(1, '01', 'MATRIZ', 'A'),
+	(2, '02', 'QUITO', 'A'),
+	(3, '03', 'CUENCA', 'A'),
+	(4, '04', 'AMBATOOO', 'I');
 /*!40000 ALTER TABLE `bodega` ENABLE KEYS */;
 
 -- Volcando estructura para tabla hostcenter.categoria
@@ -33,15 +39,17 @@ CREATE TABLE IF NOT EXISTS `categoria` (
   `categoria_id` int(11) NOT NULL AUTO_INCREMENT,
   `codigo` varchar(5) DEFAULT NULL,
   `descripcion` varchar(250) DEFAULT NULL,
+  `estado` char(1) DEFAULT NULL,
   PRIMARY KEY (`categoria_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla hostcenter.categoria: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla hostcenter.categoria: ~4 rows (aproximadamente)
 /*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
-INSERT INTO `categoria` (`categoria_id`, `codigo`, `descripcion`) VALUES
-	(1, '01', 'Farmacos'),
-	(2, '02', 'Bebe'),
-	(3, '03', 'Belleza');
+INSERT INTO `categoria` (`categoria_id`, `codigo`, `descripcion`, `estado`) VALUES
+	(1, '01', 'Farmacos', 'A'),
+	(2, '02', 'Bebe', 'A'),
+	(3, '03', 'Belleza', 'A'),
+	(4, '05', 'EQUIPOS DE COMPUTO', 'I');
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 
 -- Volcando estructura para tabla hostcenter.factura
@@ -123,18 +131,22 @@ CREATE TABLE IF NOT EXISTS `persona` (
   `identificacion` varchar(15) NOT NULL,
   `nombres` varchar(150) NOT NULL,
   `apellidos` varchar(150) NOT NULL,
-  `direccion` varchar(25) NOT NULL,
-  `telefono` varchar(25) NOT NULL,
-  `email` varchar(250) NOT NULL,
-  `fecha_nacimiento` date NOT NULL,
+  `direccion` varchar(25) DEFAULT NULL,
+  `telefono` varchar(25) DEFAULT NULL,
+  `email` varchar(250) DEFAULT NULL,
+  `fecha_nacimiento` date DEFAULT NULL,
   `esCliente` int(11) DEFAULT NULL,
   `esProveedor` int(11) DEFAULT NULL,
   `estado` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`persona_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla hostcenter.persona: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla hostcenter.persona: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `persona` DISABLE KEYS */;
+INSERT INTO `persona` (`persona_id`, `tipo_identificacion`, `identificacion`, `nombres`, `apellidos`, `direccion`, `telefono`, `email`, `fecha_nacimiento`, `esCliente`, `esProveedor`, `estado`) VALUES
+	(1, 'R', '0930764006001', 'JORDAN VICENTE', 'ORDONEZ CABRERA', 'VACAS GALINDO', '0961592073', 'jordanvicente_21@hotmail.com', '1995-05-24', 1, 0, 'A'),
+	(2, 'C', '0919381665', 'JOSELINE VANESSAAA', 'FLORES SOLIS', 'VACAS GALINDO', '0990013421', 'vanessa.flores1605@gmail.com', '1995-05-18', 1, 0, 'A'),
+	(3, 'C', '0930764006', 'JORDAN', 'ORDOÑEZ', 'PRUEBA', '100000000', 'jordiicabrera@gmail.com', '1994-05-21', 1, 0, 'I');
 /*!40000 ALTER TABLE `persona` ENABLE KEYS */;
 
 -- Volcando estructura para tabla hostcenter.producto
@@ -150,13 +162,13 @@ CREATE TABLE IF NOT EXISTS `producto` (
   `estado` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`producto_id`),
   KEY `categoria_id` (`categoria_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla hostcenter.producto: ~12 rows (aproximadamente)
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
 INSERT INTO `producto` (`producto_id`, `categoria_id`, `codigo`, `descripcion`, `stock`, `graba_iva`, `precio_unitario`, `porcentaje_descuento`, `estado`) VALUES
 	(1, 1, '01', 'IBUPROFENO 500MG', 15, 1, 10.000000, 0, 'A'),
-	(2, 2, '02', 'PANALES XXG', 25, 1, 25.000000, 0, 'A'),
+	(2, 2, '02', 'PANALES XXG', 25, 1, 25.000000, 0, 'I'),
 	(3, 1, '03', 'TARRO DE LECHE GRANDE', 25, 1, 65.000000, 0, 'A'),
 	(4, 1, 'TICO', 'TECLADO ALAMBRICO', 30, 0, 14.000000, 0, 'A'),
 	(5, 1, 'TINCO', 'TECLADO INALAMBRICO', 30, 0, 35.000000, 0, 'A'),
@@ -166,7 +178,8 @@ INSERT INTO `producto` (`producto_id`, `categoria_id`, `codigo`, `descripcion`, 
 	(9, 2, '03', 'TARRO DE LECHE GRANDE BBB', 55, 1, 50.000000, 0, 'I'),
 	(10, 2, '45454', 'asdassadsad', 20, 1, 10.000000, 0, 'I'),
 	(11, 1, '12345', 'PRUEBA DE ACTUALIZACION', 60, 1, 15.000000, 3, 'A'),
-	(12, 2, '22222', 'PRUEBA DE PRODUCTO', 36, 1, 15.000000, 5, 'I');
+	(12, 2, '22222', 'PRUEBA DE PRODUCTO', 36, 1, 15.000000, 5, 'I'),
+	(13, 2, '3333', 'XIAOMI REDMI NOTE 8 PRO', 20, 1, 260.000000, 0, 'A');
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 
 -- Volcando estructura para tabla hostcenter.stock_producto
@@ -220,6 +233,19 @@ INSERT INTO `usuarios` (`usuario_id`, `tipo_usuario_id`, `codigo`, `usuario`, `n
 	(3, 1, '0002', 'admin', 'ADMINISTRADOR', '$2b$10$uFZA6NI/EYmULvh3ZzPkUuEssvGi3cFgjk.IRSAoVlLlXw6BpRAdu', 'A');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 
+-- Volcando estructura para vista hostcenter.vlistarpersonas
+-- Creando tabla temporal para superar errores de dependencia de VIEW
+CREATE TABLE `vlistarpersonas` (
+	`persona_id` INT(11) NOT NULL,
+	`tipo` VARCHAR(6) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`identificacion` VARCHAR(15) NOT NULL COLLATE 'latin1_swedish_ci',
+	`nombres` VARCHAR(301) NOT NULL COLLATE 'latin1_swedish_ci',
+	`direccion` VARCHAR(25) NULL COLLATE 'latin1_swedish_ci',
+	`telefono` VARCHAR(25) NULL COLLATE 'latin1_swedish_ci',
+	`email` VARCHAR(250) NULL COLLATE 'latin1_swedish_ci',
+	`fecha` VARCHAR(10) NULL COLLATE 'utf8mb4_general_ci'
+) ENGINE=MyISAM;
+
 -- Volcando estructura para vista hostcenter.vlistarproductos
 -- Creando tabla temporal para superar errores de dependencia de VIEW
 CREATE TABLE `vlistarproductos` (
@@ -233,6 +259,32 @@ CREATE TABLE `vlistarproductos` (
 	`precio_unitario` DECIMAL(18,6) NULL,
 	`porcentaje_descuento` INT(3) NULL
 ) ENGINE=MyISAM;
+
+-- Volcando estructura para vista hostcenter.vlistarusuarios
+-- Creando tabla temporal para superar errores de dependencia de VIEW
+CREATE TABLE `vlistarusuarios` (
+	`usuario_id` INT(11) NOT NULL,
+	`tipo_usuario` VARCHAR(150) NULL COLLATE 'latin1_swedish_ci',
+	`codigo` VARCHAR(10) NULL COLLATE 'latin1_swedish_ci',
+	`usuario` VARCHAR(100) NULL COLLATE 'latin1_swedish_ci',
+	`nombres` VARCHAR(250) NULL COLLATE 'latin1_swedish_ci'
+) ENGINE=MyISAM;
+
+-- Volcando estructura para vista hostcenter.vlistarpersonas
+-- Eliminando tabla temporal y crear estructura final de VIEW
+DROP TABLE IF EXISTS `vlistarpersonas`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vlistarpersonas` AS SELECT
+	persona_id,
+	(CASE WHEN tipo_identificacion='C' THEN 'Cedula' ELSE 'Ruc' END) AS tipo,
+	identificacion,
+	CONCAT(apellidos,' ',nombres) AS nombres,
+	direccion,
+	telefono,
+	email,
+	DATE_FORMAT(fecha_nacimiento,'%d/%m/%Y') AS fecha
+FROM
+persona
+WHERE estado = 'A' ;
 
 -- Volcando estructura para vista hostcenter.vlistarproductos
 -- Eliminando tabla temporal y crear estructura final de VIEW
@@ -249,7 +301,20 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vlistarproductos` AS SELEC
 	p.porcentaje_descuento
 FROM producto p
 INNER JOIN categoria c ON p.categoria_id = c.categoria_id
-WHERE estado="A" ;
+WHERE p.estado="A" ;
+
+-- Volcando estructura para vista hostcenter.vlistarusuarios
+-- Eliminando tabla temporal y crear estructura final de VIEW
+DROP TABLE IF EXISTS `vlistarusuarios`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vlistarusuarios` AS SELECT
+	u.usuario_id,
+	tu.descripcion AS tipo_usuario,
+	u.codigo,
+	u.usuario,
+	u.nombres
+FROM usuarios u
+INNER JOIN tipo_usuario tu ON u.tipo_usuario_id = tu.tipo_usuario_id
+WHERE u.estado = 'A' ;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

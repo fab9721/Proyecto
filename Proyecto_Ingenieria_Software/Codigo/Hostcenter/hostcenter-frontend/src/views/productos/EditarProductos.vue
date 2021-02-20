@@ -114,6 +114,8 @@ export default {
         guardarProducto(){
             let router = this.$router;
             let params = this.articulo;
+            console.log(params);
+            console.log(url+this.producto_id)
             axios.put(url+this.producto_id,params)
             .then(()=>{
                 router.push('/productos');

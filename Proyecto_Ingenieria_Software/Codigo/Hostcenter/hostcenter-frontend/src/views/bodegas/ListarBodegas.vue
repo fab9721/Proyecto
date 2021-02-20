@@ -212,7 +212,12 @@ import axios from 'axios';
       },
 
       deleteBodegaConfirm () {
+        let id = this.bodegas[this.editedIndex].bodega_id;
         this.bodegas.splice(this.editedIndex, 1)
+        axios.delete(url+id)
+        .then(()=>{
+          this.initialize()
+        })
         this.closeDelete()
       },
 
