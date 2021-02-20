@@ -28,6 +28,7 @@ app.use(require('./routes/usuarios.js'));
 app.use(require('./routes/productos.js'));
 app.use(require('./routes/personas.js'));
 app.use(require('./routes/bodegas.js'));
+app.use(require('./routes/categorias.js'));
 
 
 app.listen(app.get('port'),()=>{

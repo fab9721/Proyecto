@@ -4,6 +4,41 @@ const app = express();
 const bcrypt = require('bcrypt');
 const { check, validationResult } = require('express-validator');
 
+//CONSULTAR TIPOS DE USUARIO
+app.get('/tipousuario/all',[],async(req,res)=>{
+
+    await conn.select("tipo_usuario_id","descripcion")
+    .from("tipo_usuario")
+    .then(data=>res.json({
+        result:"ok",
+        data
+    })).catch(err=>res.status(400).json({
+        result:false,
+        mensaje:err
+    }))
+});
+
+
+
+//CONSULTAR USUARIOS
+app.get('/user/',[],async(req,res)=>{
+    // Pagineo, desde que registro va a comenzar el Query
+    let desde = req.query.desde || 0;
+    desde = Number(desde);
+
+    // Cantidad Límite
+    let limite = req.query.limite || 5;
+    limite = Number(limite);
+
+    await conn.select("*").from("vlistarusuarios").then(usuario=>res.json({
+        result: "ok",
+        usuario
+    })).catch(err=>res.status(400).json({
+        result:false,
+        mensaje:err
+    }))
+});
+
 
 //INICIAR SESION
 app.post('/user/login/',[
@@ -63,15 +98,15 @@ app.post('/user/login/',[
 });
 
 //INSERTAR USUARIO
-app.post('/user/registrar',[
-    check('tipousuario').not().isEmpty().withMessage('Dato requerido'),
+app.post('/user',[
+    check('tipo_usuario_id').not().isEmpty().withMessage('Dato requerido'),
     check('codigo').not().isEmpty().withMessage('Dato requerido'),
     check('usuario').not().isEmpty().withMessage('Dato requerido'),
     check('nombres').not().isEmpty().withMessage('Dato requerido'),
     check('clave').not().isEmpty().withMessage('Dato requerido') 
 ],async(req,res)=>{
 
-    const {codigo,usuario,nombres,clave,tipousuario} = req.body;
+    const {codigo,usuario,nombres,clave,tipo_usuario_id} = req.body;
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -84,7 +119,7 @@ app.post('/user/registrar',[
     await conn("usuarios")
         .insert(
             {
-                tipo_usuario_id : tipousuario,
+                tipo_usuario_id : tipo_usuario_id,
                 codigo: codigo,
                 usuario: usuario,
                 nombres: nombres,
@@ -103,14 +138,15 @@ app.post('/user/registrar',[
 });
 
 //ACTUALIZAR USUARIO
-app.post('/user/actualizar',[
-    check('tipousuario').not().isEmpty().withMessage('Dato requerido'),
-    check('codigo').not().isEmpty().withMessage('Dato requerido'),
+app.put('/user/:usuario_id',[
+    check('tipo_usuario_id').not().isEmpty().withMessage('Dato requerido'),
     check('nombres').not().isEmpty().withMessage('Dato requerido'),
     check('clave').not().isEmpty().withMessage('Dato requerido')
 ],async(req,res)=>{
 
-    const {tipousuario,codigo,usuario,nombres,clave} = req.body;
+    let usuario_id = req.params.usuario_id;
+
+    const {tipo_usuario_id,nombres,clave} = req.body;
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -120,10 +156,9 @@ app.post('/user/actualizar',[
         });
     }
 
-    await conn("usuarios").where("codigo",codigo)
+    await conn("usuarios").where("usuario_id",usuario_id)
         .update({
-            tipo_usuario_id: tipousuario,
-            usuario: usuario,
+            tipo_usuario_id: tipo_usuario_id,
             nombres: nombres,
             clave: bcrypt.hashSync(clave,10),
         }).then(data=>res.json({
@@ -138,7 +173,7 @@ app.post('/user/actualizar',[
 });
 
 //INACTIVAR USUARIO
-app.post('/user/eliminar',[],async(req,res)=>{
+app.delete('/user/',[],async(req,res)=>{
 
     const {codigo,estado} = req.body;
 
@@ -155,25 +190,21 @@ app.post('/user/eliminar',[],async(req,res)=>{
 
 });
 
-//CONSULTAR USUARIOS
-app.get('/user/all',[],async(req,res)=>{
-    // Pagineo, desde que registro va a comenzar el Query
-    let desde = req.query.desde || 0;
-    desde = Number(desde);
 
-    // Cantidad Límite
-    let limite = req.query.limite || 5;
-    limite = Number(limite);
 
-    await conn.select("*").from("usuarios").where("estado","A").then(data=>res.json({
+//CONSULTAR USUARIO POR ID
+app.get('/user/:usuario_id',async (req,res)=>{
+
+    await conn.select("*")
+        .from("usuarios")
+        .where("usuario_id",req.params.usuario_id)
+        .then(usuario=>res.json({
         result: "ok",
-        data
+        usuario
     })).catch(err=>res.status(400).json({
         result:false,
         mensaje:err
     }))
 });
-//CONSULTAR USUARIO POR ID
-
 
 module.exports = app;

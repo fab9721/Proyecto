@@ -13,8 +13,14 @@ import ListarBodegas from './views/bodegas/ListarBodegas.vue'
 import EditarBodegas from './views/bodegas/EditarBodegas.vue'
 import CrearBodegas from './views/bodegas/CrearBodegas.vue'
 
-// import Login from './Login.vue'
-// import Home from './Home.vue'
+import ListarCategorias from './views/categorias/ListarCategorias.vue'
+import EditarCategorias from './views/categorias/EditarCategorias.vue'
+import CrearCategorias from './views/categorias/CrearCategorias.vue'
+
+import ListarUsuarios from './views/usuarios/ListarUsuarios.vue'
+import EditarUsuarios from './views/usuarios/EditarUsuarios.vue'
+import CrearUsuarios from './views/usuarios/CrearUsuarios.vue'
+
 
 Vue.use(VueRouter)
 
@@ -73,7 +79,37 @@ const routes = [
     path: '/bodegas/crear/',
     name: 'CrearBodegas',
     component: CrearBodegas
-  }
+  },
+  {
+    path: '/categorias',
+    name: 'ListarCategorias',
+    component: ListarCategorias
+  },
+  {
+    path: '/categorias/editar/:id',
+    name: 'EditarCategorias',
+    component: EditarCategorias
+  },
+  {
+    path: '/categorias/crear/',
+    name: 'CrearCategorias',
+    component: CrearCategorias
+  },
+  {
+    path: '/usuarios',
+    name: 'ListarUsuarios',
+    component: ListarUsuarios
+  },
+  {
+    path: '/usuarios/editar/:id',
+    name: 'EditarUsuarios',
+    component: EditarUsuarios
+  },
+  {
+    path: '/usuarios/crear/',
+    name: 'CrearUsuarios',
+    component: CrearUsuarios
+  },
   // {
   //   path: '/about',
   //   name: 'About',
@@ -91,3 +127,4 @@ const router = new VueRouter({
 })
 
 export default router
+
