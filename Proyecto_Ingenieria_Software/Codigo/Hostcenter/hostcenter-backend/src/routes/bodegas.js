@@ -5,7 +5,7 @@ const app = express();
 const { check, validationResult } = require('express-validator');
 
 
-//OBTENER CATEGORIAS
+//OBTENER BODEGAS
 app.get('/bodegas/',[],async(req,res)=>{
 
     await conn.select("bodega_id","codigo","descripcion")

@@ -28,7 +28,10 @@ app.use(require('./routes/usuarios.js'));
 app.use(require('./routes/productos.js'));
 app.use(require('./routes/personas.js'));
 app.use(require('./routes/bodegas.js'));
-
+app.use(require('./routes/categorias.js'));
+app.use(require('./routes/facturas.js'));
+app.use(require('./routes/movimientoinventario.js'));
+app.use(require('./routes/reportes.js'));
 
 app.listen(app.get('port'),()=>{
     console.log(`Server on port ${app.get('port')}`);

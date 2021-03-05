@@ -273,7 +273,12 @@ import axios from 'axios';
       },
 
       deleteItemConfirm () {
+        let id = this.personas[this.editedIndex].persona_id;
         this.personas.splice(this.editedIndex, 1)
+        axios.delete(url+id)
+        .then(()=>{
+          this.initialize()
+        })
         this.closeDelete()
       },
 

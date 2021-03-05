@@ -29,6 +29,7 @@
                         :items = "categoria"
                         label="Categoria"
                         required
+                        :rules="rules.select"
                     >
                     </v-select>
                     <v-text-field 
@@ -92,7 +93,11 @@ export default {
                 graba_iva:0,
                 porcentaje_descuento:null
             },
-            categoria:[]
+            categoria:[],
+            rules: {
+                select: [(v) => !!v || "Item is required"],
+                select2: [(v) =>  v.length>0 || "Item is required in select 2"],
+            },
         }
     },
     methods:{

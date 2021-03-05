@@ -37,7 +37,7 @@
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-list-item :to="{name:''}">
+          <v-list-item :to="{name:'ListarCategorias'}">
             <v-list-item-action>
               <v-icon>mdi-cards-variant</v-icon>
             </v-list-item-action>
@@ -57,6 +57,16 @@
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+          <v-list-item :to="{name:'ListarUsuarios'}">
+            <v-list-item-action>
+              <v-icon>mdi-account</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>
+                Usuarios
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
         </v-list-group>
         <v-list-group>
           <v-list-item slot="activator">
@@ -66,7 +76,7 @@
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-list-item :to="{name:''}">
+          <v-list-item :to="{name:'ListarFacturas'}">
             <v-list-item-action>
               <v-icon>mdi-file-chart</v-icon>
             </v-list-item-action>
@@ -85,23 +95,13 @@
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-list-item :to="{name:''}">
+          <v-list-item :to="{name:'ListarInventarios'}">
             <v-list-item-action>
               <v-icon>mdi-redo</v-icon>
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>
-                Ingreso de Bodega
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item :to="{name:''}">
-            <v-list-item-action>
-              <v-icon>mdi-undo</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>
-                Egreso de Bodega
+                Ingreso/Egreso de Bodega
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
@@ -114,13 +114,13 @@
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-list-item :to="{name:''}">
+          <v-list-item :to="{name:'ReporteVentas'}">
             <v-list-item-action>
               <v-icon>mdi-chart-line</v-icon>
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>
-                Reporte de Ventas
+                Ventas por cliente
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>

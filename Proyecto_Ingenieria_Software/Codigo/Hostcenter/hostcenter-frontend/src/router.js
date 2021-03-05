@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+import Login from './Login.vue'
+
 import ListarProducto from './views/productos/ListarProductos.vue'
 import EditarProducto from './views/productos/EditarProductos.vue'
 import CrearProducto from './views/productos/CrearProductos.vue'
@@ -13,8 +15,25 @@ import ListarBodegas from './views/bodegas/ListarBodegas.vue'
 import EditarBodegas from './views/bodegas/EditarBodegas.vue'
 import CrearBodegas from './views/bodegas/CrearBodegas.vue'
 
+import ListarCategorias from './views/categorias/ListarCategorias.vue'
+import EditarCategorias from './views/categorias/EditarCategorias.vue'
+import CrearCategorias from './views/categorias/CrearCategorias.vue'
+
+import ListarUsuarios from './views/usuarios/ListarUsuarios.vue'
+import EditarUsuarios from './views/usuarios/EditarUsuarios.vue'
+import CrearUsuarios from './views/usuarios/CrearUsuarios.vue'
+
+import ListarFacturas from './views/facturas/ListarFacturas.vue'
+import CrearFacturas from './views/facturas/CrearFacturas.vue'
+import VerFacturas from './views/facturas/VerFacturas.vue'
+
+import ListarInventarios from './views/inventarios/ListarInventarios.vue'
+import VerInventarios from './views/inventarios/VerInventarios.vue'
+import CrearInventarios from './views/inventarios/CrearInventarios.vue'
+
+import ReporteVentas from './views/reportes/ReporteVentas.vue'
 // import Login from './Login.vue'
-// import Home from './Home.vue'
+import Home from './Home.vue'
 
 Vue.use(VueRouter)
 
@@ -23,11 +42,6 @@ const routes = [
   //   path: '/',
   //   name: 'Login',
   //   component: Login
-  // },
-  // {
-  //   path: '/Home',
-  //   name: 'Home',
-  //   component: Home
   // },
   {
     path: '/productos',
@@ -73,15 +87,72 @@ const routes = [
     path: '/bodegas/crear/',
     name: 'CrearBodegas',
     component: CrearBodegas
-  }
-  // {
-  //   path: '/about',
-  //   name: 'About',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-  // }
+  },
+  {
+    path: '/categorias',
+    name: 'ListarCategorias',
+    component: ListarCategorias
+  },
+  {
+    path: '/categorias/editar/:id',
+    name: 'EditarCategorias',
+    component: EditarCategorias
+  },
+  {
+    path: '/categorias/crear/',
+    name: 'CrearCategorias',
+    component: CrearCategorias
+  },
+  {
+    path: '/usuarios',
+    name: 'ListarUsuarios',
+    component: ListarUsuarios
+  },
+  {
+    path: '/usuarios/editar/:id',
+    name: 'EditarUsuarios',
+    component: EditarUsuarios
+  },
+  {
+    path: '/usuarios/crear/',
+    name: 'CrearUsuarios',
+    component: CrearUsuarios
+  },
+  {
+    path: '/facturas',
+    name: 'ListarFacturas',
+    component: ListarFacturas
+  },
+  {
+    path: '/facturas/crear/',
+    name: 'CrearFacturas',
+    component: CrearFacturas
+  },
+  {
+    path: '/facturas/ver/',
+    name: 'VerFacturas',
+    component: VerFacturas
+  },
+  {
+    path: '/inventarios',
+    name: 'ListarInventarios',
+    component: ListarInventarios
+  },
+  {
+    path: '/inventarios/crear/',
+    name: 'CrearInventarios',
+    component: CrearInventarios
+  },
+  {
+    path: '/inventarios/ver/',
+    name: 'VerInventarios',
+    component: VerInventarios
+  },
+  {
+    path: '/reporte',
+    name: 'ReporteVentas',
+    component: ReporteVentas
+  },
 ]
 
 const router = new VueRouter({

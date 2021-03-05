@@ -1,5 +1,5 @@
 <template>
-    <v-content>
+    <v-app>
         <form v-on:submit.prevent="iniciarSesion()">
             <v-card width="500" class="mx-auto mt-9">
                 <v-card-title>Inicio de Sesion</v-card-title>
@@ -26,7 +26,7 @@
                 </v-card-actions>
             </v-card>
         </form>
-    </v-content>
+    </v-app>
     
 </template>
 
@@ -54,7 +54,7 @@ export default {
             console.log(url);
             console.log(params);
 
-            //router.push('/Home')
+            router.push('./App.vue')
 
             // await axios.post(url,params)
             // .then(response=>{
