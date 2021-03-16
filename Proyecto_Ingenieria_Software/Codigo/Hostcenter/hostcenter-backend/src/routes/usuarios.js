@@ -55,37 +55,44 @@ app.post('/user/login/',[
             token: ""
         });
     }
+    console.log(req.body);
 
     await conn.select("*")
     .from("usuarios")
     .where({
         usuario:usuario
     })
-    .then(result=>{
+    .then(async result=>{
         try {
-            //console.log('Prueba');
-            
+            //console.log(clave);
+            //console.log(result[0].clave);
             if(result.length>0){
                 
-                if(!bcrypt.compare(clave, result[0]["clave"])){
+                console.log(result);
+                if(!(await bcrypt.compare(clave, result[0].clave))){
+                    //De ser invalida se rechazara la solicitud de acceso
                     res.status(400).json({
-                        result: false,
-                        mensaje: "Usuario o Contraseña Incorrecta",
-                        token: ""
-                    });
+                                result: false,
+                                mensaje: "Usuario o Contraseña Incorrecta",
+                                token: ""
+                            });
                 }
+                else{
+                    res.status(200).json({
+                                result:"ok",
+                                data:result[0]
+                            });
+                }
+                
             }else{
                 res.status(401).json({
                     result: "El usuario no esta registrado"
                 })
             }
 
-            res.status(200).json({
-                result:"ok",
-                data:result[0]
-            });
 
         } catch (error) {
+            //console.log("prueba")
             //Ocurrio un error en alguna sentencia
             //Se imprimen los detalles del error en la consola
             console.log(error);
@@ -139,8 +146,7 @@ app.post('/user',[
 
 //ACTUALIZAR USUARIO
 app.put('/user/:usuario_id',[
-    check('tipo_usuario_id').not().isEmpty().withMessage('Dato requerido'),
-    check('nombres').not().isEmpty().withMessage('Dato requerido'),
+    //check('nombres').not().isEmpty().withMessage('Dato requerido'),
     check('clave').not().isEmpty().withMessage('Dato requerido')
 ],async(req,res)=>{
 
@@ -155,6 +161,9 @@ app.put('/user/:usuario_id',[
             mensaje: errors.array()
         });
     }
+
+    //console.log(clave);
+    //console.log(bcrypt.hashSync(clave,10));
 
     await conn("usuarios").where("usuario_id",usuario_id)
         .update({

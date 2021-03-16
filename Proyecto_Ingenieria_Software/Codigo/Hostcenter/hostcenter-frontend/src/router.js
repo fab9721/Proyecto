@@ -37,128 +37,151 @@ import Home from './Home.vue'
 
 Vue.use(VueRouter)
 
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
 const routes = [
   // {
   //   path: '/',
-  //   name: 'Login',
-  //   component: Login
+  //   redirect: {
+  //     name: "login"
+  //   },
   // },
   {
-    path: '/productos',
-    name: 'ListarProductos',
-    component: ListarProducto
+    path: '/',
+    name: 'login',
+    component: Login
   },
   {
-    path: '/productos/editar/:id',
-    name: 'EditarProductos',
-    component: EditarProducto
+    path: '/home',
+    name: 'home',
+    component: Home,
+    children:[
+      {
+        path: '/productos',
+        name: 'ListarProductos',
+        component: ListarProducto
+      },
+      {
+        path: '/productos/editar/:id',
+        name: 'EditarProductos',
+        component: EditarProducto
+      },
+      {
+        path: '/productos/crear/',
+        name: 'CrearProductos',
+        component: CrearProducto
+      },
+      {
+        path: '/personas',
+        name: 'ListarPersonas',
+        component: ListarPersonas
+      },
+      {
+        path: '/personas/editar/:id',
+        name: 'EditarPersonas',
+        component: EditarPersonas
+      },
+      {
+        path: '/personas/crear/',
+        name: 'CrearPersonas',
+        component: CrearPersonas
+      },
+      {
+        path: '/bodegas',
+        name: 'ListarBodegas',
+        component: ListarBodegas
+      },
+      {
+        path: '/bodegas/editar/:id',
+        name: 'EditarBodegas',
+        component: EditarBodegas
+      },
+      {
+        path: '/bodegas/crear/',
+        name: 'CrearBodegas',
+        component: CrearBodegas
+      },
+      {
+        path: '/categorias',
+        name: 'ListarCategorias',
+        component: ListarCategorias
+      },
+      {
+        path: '/categorias/editar/:id',
+        name: 'EditarCategorias',
+        component: EditarCategorias
+      },
+      {
+        path: '/categorias/crear/',
+        name: 'CrearCategorias',
+        component: CrearCategorias
+      },
+      {
+        path: '/usuarios',
+        name: 'ListarUsuarios',
+        component: ListarUsuarios
+      },
+      {
+        path: '/usuarios/editar/:id',
+        name: 'EditarUsuarios',
+        component: EditarUsuarios
+      },
+      {
+        path: '/usuarios/crear/',
+        name: 'CrearUsuarios',
+        component: CrearUsuarios
+      },
+      {
+        path: '/facturas',
+        name: 'ListarFacturas',
+        component: ListarFacturas
+      },
+      {
+        path: '/facturas/crear/',
+        name: 'CrearFacturas',
+        component: CrearFacturas
+      },
+      {
+        path: '/facturas/ver/',
+        name: 'VerFacturas',
+        component: VerFacturas
+      },
+      {
+        path: '/inventarios',
+        name: 'ListarInventarios',
+        component: ListarInventarios
+      },
+      {
+        path: '/inventarios/crear/',
+        name: 'CrearInventarios',
+        component: CrearInventarios
+      },
+      {
+        path: '/inventarios/ver/',
+        name: 'VerInventarios',
+        component: VerInventarios
+      },
+      {
+        path: '/reporte',
+        name: 'ReporteVentas',
+        component: ReporteVentas
+      }
+      
+    ]
   },
-  {
-    path: '/productos/crear/',
-    name: 'CrearProductos',
-    component: CrearProducto
-  },
-  {
-    path: '/personas',
-    name: 'ListarPersonas',
-    component: ListarPersonas
-  },
-  {
-    path: '/personas/editar/:id',
-    name: 'EditarPersonas',
-    component: EditarPersonas
-  },
-  {
-    path: '/personas/crear/',
-    name: 'CrearPersonas',
-    component: CrearPersonas
-  },
-  {
-    path: '/bodegas',
-    name: 'ListarBodegas',
-    component: ListarBodegas
-  },
-  {
-    path: '/bodegas/editar/:id',
-    name: 'EditarBodegas',
-    component: EditarBodegas
-  },
-  {
-    path: '/bodegas/crear/',
-    name: 'CrearBodegas',
-    component: CrearBodegas
-  },
-  {
-    path: '/categorias',
-    name: 'ListarCategorias',
-    component: ListarCategorias
-  },
-  {
-    path: '/categorias/editar/:id',
-    name: 'EditarCategorias',
-    component: EditarCategorias
-  },
-  {
-    path: '/categorias/crear/',
-    name: 'CrearCategorias',
-    component: CrearCategorias
-  },
-  {
-    path: '/usuarios',
-    name: 'ListarUsuarios',
-    component: ListarUsuarios
-  },
-  {
-    path: '/usuarios/editar/:id',
-    name: 'EditarUsuarios',
-    component: EditarUsuarios
-  },
-  {
-    path: '/usuarios/crear/',
-    name: 'CrearUsuarios',
-    component: CrearUsuarios
-  },
-  {
-    path: '/facturas',
-    name: 'ListarFacturas',
-    component: ListarFacturas
-  },
-  {
-    path: '/facturas/crear/',
-    name: 'CrearFacturas',
-    component: CrearFacturas
-  },
-  {
-    path: '/facturas/ver/',
-    name: 'VerFacturas',
-    component: VerFacturas
-  },
-  {
-    path: '/inventarios',
-    name: 'ListarInventarios',
-    component: ListarInventarios
-  },
-  {
-    path: '/inventarios/crear/',
-    name: 'CrearInventarios',
-    component: CrearInventarios
-  },
-  {
-    path: '/inventarios/ver/',
-    name: 'VerInventarios',
-    component: VerInventarios
-  },
-  {
-    path: '/reporte',
-    name: 'ReporteVentas',
-    component: ReporteVentas
-  },
+  
 ]
+
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
 })
+
+
 
 export default router

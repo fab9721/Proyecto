@@ -1,5 +1,5 @@
 <template>
-    <v-app>
+    <v-container>
         <form v-on:submit.prevent="iniciarSesion()">
             <v-card width="500" class="mx-auto mt-9">
                 <v-card-title>Inicio de Sesion</v-card-title>
@@ -21,23 +21,19 @@
                 </v-card-text>
                 <v-divider></v-divider>
                 <v-card-actions>
-                    <v-btn color="sucess">Registrate</v-btn>
-                    <v-btn color="info" type="submit">Login</v-btn>
+                    <v-btn color="info" type="submit" @click="iniciarSesion">Aceptar</v-btn>
                 </v-card-actions>
             </v-card>
         </form>
-    </v-app>
+    </v-container>
     
 </template>
 
 <script>
 let url = 'http://localhost:3000/user/login/'    
-//import axios from "axios"    
+import axios from "axios"    
 export default {    
-    name:"Login",
-    mounted(){
-        this.iniciarSesion();
-    },
+    // name:"Login",
     data(){
         return{
             user:{
@@ -51,25 +47,28 @@ export default {
        async iniciarSesion(){
             //let router=this.$router;
             let params = this.user;
-            console.log(url);
-            console.log(params);
+            await axios.post(url,params)
+            .then(async response=>{
+                //console.log(response.data);
 
-            router.push('./App.vue')
-
-            // await axios.post(url,params)
-            // .then(response=>{
-            //     console.log(response.data);
-            //     alert("Acceso correcto")
-            //     //REDI
-            //     router.push('d')
-            // })
-            // .catch(error=>{
-            //     console.log(error.data);
-            //     // if(!response.data.result){
-            //     //     alert(response.data.mensaje);
-            //     // }
-            //     // console.log(error.response.data);
-            // })
+                if(await response.data.result=="ok"){
+                    //alert("Acceso correcto")
+                    this.$router.replace({name:'home'})
+                }
+                else{
+                    alert("El usuario o la contraseña no son correctos");
+                }
+                
+            })
+            .catch(error=>{
+                console.log(error);
+                //alert("Error");
+                alert("El usuario o la contraseña no son correctos");
+                // if(!response.data.result){
+                //     alert(response.data.mensaje);
+                // }
+                // console.log(error.response.data);
+            })
         }
     }
 }
